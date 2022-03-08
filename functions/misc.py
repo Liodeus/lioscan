@@ -1,4 +1,5 @@
 from functions.config import *
+import requests
 import os
 
 
@@ -12,7 +13,10 @@ def make_directory(path):
 
 
 def url_respond(url):
-	return True
+	"""
+		Return True if url response code is 200
+	"""
+	return requests.get(url, verify=False).status_code == 200
 
 
 def check_install():

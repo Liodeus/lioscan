@@ -32,17 +32,17 @@ TODO
 ## Installation
 
 ```
-$ git clone https://github.com/Liodeus/lioscan
-$ cd lioscan
+git clone https://github.com/Liodeus/lioscan
+cd lioscan
 
 # Create a virtual env
-$ python3 -m venv .venv
+python3 -m venv .venv
 
 # Activate the virtual env
-$ . .venv\bin\activate
+. .venv/bin/activate
 
-$ pip install -r requirements.txt
-$ python lioscan.py -i
+pip install -r requirements.txt
+python lioscan.py -i
 ```
 
 ## Acunetix API key

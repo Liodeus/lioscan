@@ -111,6 +111,11 @@ def install_acunetix():
 
 def check_goland_version():
 	test_go = cmd("go version")
+
+	if "not found" in test_go:
+		print("You need to install go before !")
+		exit()
+
 	version = '.'.join(test_go.split('go')[-1].split()[0].split('.')[:-1])
 	return float(version) >= 1.17
 
