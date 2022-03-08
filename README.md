@@ -46,7 +46,7 @@ Once the installation process is finished (cf. [Installation](https://github.com
   - Default credentials :
       - email -> contact@manhtuong.net
       - password -> Abcd1234
-    - You should now be connected. Go to the "Profile" page 
+  - You should now be connected. Go to the "Profile" page 
 <img src="https://github.com/Liodeus/lioscan/blob/main/images/profile.png" alt="profile">
   - Scroll to the "API Key" part :
 <img src="https://github.com/Liodeus/lioscan/blob/main/images/api_zone.png" alt="api_part">
