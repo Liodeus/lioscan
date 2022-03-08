@@ -1,9 +1,8 @@
 FROM python:3.9-slim-buster
 
-RUN apt-get update && apt-get install -y gcc wget git
+RUN apt-get update && apt-get install -y gcc wget git make
 RUN apt-get install -y sudo
 
-USER root
 CMD /bin/bash
 
 COPY --from=golang:1.17.8-buster /usr/local/go/ /usr/local/go/
