@@ -9,11 +9,11 @@ def launch_js(url, domain, path):
 	cmd(f"cat {path}{FOLDER_JS}subjs.out {path}{FOLDER_CRAWL}gospider.js | sort -u > {path}{FOLDER_JS}js.out")
 
 	# Before scanning, make sure that you only have 200 codes
-	cmd(f"cat {path}{FOLDER_JS}js.out | httpx -sc -cl -nc -fr -silent | tee {path}{FOLDER_JS}httpx.js")
+	cmd_screen(f"cat {path}{FOLDER_JS}js.out | httpx -sc -cl -nc -fr -silent | tee {path}{FOLDER_JS}httpx.js")
 	cmd(f"cat {path}{FOLDER_JS}httpx.js | grep " + "'200\]'" + f" | awk -F' ' '{{print $1}}' > {path}{FOLDER_JS}httpx_200.js")
 
 	# Find new path/links in js files
-	cmd(f"for line in $(cat {path}{FOLDER_JS}httpx_200.js); do python3 {LINKFINDER_PATH} -i $line -o cli >> {path}{FOLDER_JS}linkfinder.out; done")
+	cmd_screen(f"for line in $(cat {path}{FOLDER_JS}httpx_200.js); do python3 {LINKFINDER_PATH} -i $line -o cli >> {path}{FOLDER_JS}linkfinder.out; done")
 	# Get http/https path (URL)
 	cmd(f"cat {path}{FOLDER_JS}linkfinder.out| sort -u | grep -E 'https?://' > {path}{FOLDER_JS}new_urls.out")
 	# Remove URLs from the path
@@ -36,7 +36,7 @@ def launch_js(url, domain, path):
 				else:
 					file.write(f"{url}/{line}\n")
 
-	cmd(f"for line in $(cat {path}{FOLDER_JS}httpx_200.js); do python3 {SECRETFINDER_PATH} -i $line -o cli >> {path}{FOLDER_JS}secretfinder.out; done")
+	cmd_screen(f"for line in $(cat {path}{FOLDER_JS}httpx_200.js); do python3 {SECRETFINDER_PATH} -i $line -o cli >> {path}{FOLDER_JS}secretfinder.out; done")
 	end_print("JS")
 
 

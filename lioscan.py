@@ -29,73 +29,62 @@ if __name__ == '__main__':
 
 	# Validate URL
 	if url:
-		if validators.url(url):
-			url = '/'.join(url.split('/')[:3])
+		# Check if files in config.py are there
+		if check_install():
+			if validators.url(url):
+				url = '/'.join(url.split('/')[:3])
+				# Check if url is responding
+				if url_respond(url):
+					now = datetime.now()
+					domain = url.split('/')[2]
+					dir_name =  now.strftime("%b_%d_%Y_%H_%M_%S_") + domain
+					path = getcwd()
 
-			# if there is no data in files abort part of the scan
-			# read all files in the directory and remove the one without content
+					if args.out:
+						path = args.out
 
-			# crawl - before uro, grep *.pdf
+					path_arg = f"{path}/{dir_name}"
 
-			# Make something with new_path.out 
+					# Create directories
+					try:
+						makedirs(path_arg, exist_ok=False)
+						make_directory(path_arg)
+					except FileExistsError:
+						print("Directory already exists")
+						exit()
 
-			# 403 bypass
-				# dontgo403 -u <URL>
+					# Detect
+					detect_techno(url, path_arg)
+					detect_waf(url, path_arg)
+					cve_nrich(domain, path_arg)
+					port_scan_tcp(domain, path_arg)
+					make_screenshot(url, path_arg)
 
-			# Find backup file
-				# bfac --url <URL>
+					# Crawl
+					launch_spider(url, domain, path_arg)
+					launch_gauplus(domain, path_arg)
+					merge_files(domain, path_arg)
 
-			# Find parameters
-				# gf redirect domain.txt //for potential open redirect/SSRF parameters
-				# gf xss domain.txt //for potential xss vulnerable parameters
-				# gf potential domain.txt //for xss + ssrf + open redirect parameters
-				# cat *| parth
+					# Parsing
+					parse_data_merge_gospider_gauplus(domain, path_arg)
+					remove_unused_files_gospider_gauplus(domain, path_arg)
 
-			# nuclei scan
+					# JS
+					launch_js(url, domain, path_arg)
+					remove_unused_files_js(domain, path_arg)
 
-			# make install script
-
-			now = datetime.now()
-			domain = url.split('/')[2]
-			dir_name =  now.strftime("%b_%d_%Y_%H_%M_%S_") + domain
-			path = getcwd()
-
-			if args.out:
-				path = args.out
-
-			path_arg = f"{path}/{dir_name}"
-
-			try:
-				makedirs(path_arg, exist_ok=False)
-				make_directory(path_arg)
-			except FileExistsError:
-				print("Directory already exists")
+					# Active scan
+					if args.apikey:
+						acunetix(args.apikey, domain, dir_name)
+					nuclei()
+				else:
+					print(f"{url} isn't answering, aborting the scan !")
+					exit()
+			else:
+				print("Need a valid URL")
 				exit()
-
-			# Detect
-			# detect_techno(url, path_arg)
-			# detect_waf(url, path_arg)
-			# cve_nrich(domain, path_arg)
-			# port_scan_tcp(domain, path_arg)
-			# make_screenshot(url, path_arg)
-
-			# # Crawl
-			# launch_spider(url, domain, path_arg)
-			# launch_gauplus(domain, path_arg)
-			# merge_files(domain, path_arg)
-
-			# # Parsing
-			# parse_data_merge_gospider_gauplus(domain, path_arg)
-			# remove_unused_files_gospider_gauplus(domain, path_arg)
-
-			# # JS
-			# launch_js(url, domain, path_arg)
-			# remove_unused_files_js(domain, path_arg)
-
-			# Active scan
-			if args.acunetixApi:
-				acunetix(args.acunetixApi, domain, path_arg)
-			# nuclei()
 		else:
-			print("Need a valid URL")
+			print("You might need to run the install script !")
+			print("Use :")
+			print("\tpython3 lioscan.py -i")
 			exit()

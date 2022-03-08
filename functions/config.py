@@ -11,9 +11,9 @@ FOLDER_CRAWL = "/CRAWL/"
 FOLDER_JS = "/JS/"
 
 # Path off the tools
-WEB_ANALYZE_TECHNO_PATH = "/home/liodeus/technologies.json"
-LINKFINDER_PATH = "/home/liodeus/Documents/bugbounty/js/LinkFinder/linkfinder.py"
-SECRETFINDER_PATH = "/home/liodeus/Documents/bugbounty/js/secretfinder/SecretFinder.py"
+WEB_ANALYZE_TECHNO_PATH = "./tools/technologies.json"
+LINKFINDER_PATH = "./tools/LinkFinder/linkfinder.py"
+SECRETFINDER_PATH = "./tools/secretfinder/SecretFinder.py"
 
 # Browser used
-BROWSER = "brave"
+BROWSER = "firefox"

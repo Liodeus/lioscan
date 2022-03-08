@@ -23,7 +23,11 @@ TODO
 
 ## Requirements
 
-TODO
+- python3 (sudo apt install python3)
+- pip3 (sudo apt install python3-pip)
+- go (>=1.17)
+- docker
+- firefox
 
 ## Installation
 
@@ -36,7 +40,18 @@ python3 lioscan.py -i
 
 ## Acunetix API key
 
-TODO
+Once the installation process is finished (cf. [Installation](https://github.com/Liodeus/lioscan#installation)), you need to get your API key from the acunetix docker.
+
+- Go to https://localhost:3443/
+  - Default credentials :
+      - email -> contact@manhtuong.net
+      - password -> Abcd1234
+    - You should now be connected. Go to the "Profile" page 
+<img src="https://github.com/Liodeus/lioscan/blob/main/images/profile.png" alt="profile">
+  - Scroll to the "API Key" part :
+<img src="https://github.com/Liodeus/lioscan/blob/main/images/api_zone.png" alt="api_part">
+  - Then click on copy
+  - You know have your API key for Acunetix :)
 
 ## Usage
 

@@ -30,7 +30,7 @@ def install_wafw00f():
 			"git clone https://github.com/EnableSecurity/wafw00f.git",
 			"cd wafw00f",
 			"sudo python setup.py install",
-			"rm -r wafw00f"
+			"sudo rm -r wafw00f"
 	):
 		cmd(wafw00f_cmd)
 
@@ -40,7 +40,8 @@ def install_webanalyze():
 			"wget https://github.com/rverton/webanalyze/releases/download/v0.3.6/webanalyze_0.3.6_Linux_x86_64.tar.gz",
 			"tar xvf webanalyze_0.3.6_Linux_x86_64.tar.gz",
 			"rm webanalyze_0.3.6_Linux_x86_64.tar.gz",
-			"sudo mv webanalyze /usr/bin/"
+			"sudo mv webanalyze /usr/bin/",
+			"sudo rm technologies.json"
 	):
 		cmd(webanalyze_cmd)
 
@@ -69,6 +70,23 @@ def install_golang_tools():
 		cmd(golang_tool)
 
 
+def install_linkfinder():
+	for linkfinder_cmd in (
+		"cd tools;git clone https://github.com/GerbenJavado/LinkFinder.git",
+		"pip3 install -r tools/LinkFinder/requirements.txt",
+		"cd tools/LinkFinder/;sudo python setup.py install",
+	):
+		cmd(linkfinder_cmd)
+
+
+def install_secretfinder():
+	for secretfinder_cmd in (
+		"cd tools;git clone https://github.com/m4ll0k/SecretFinder.git secretfinder",
+		"pip3 install -r tools/secretfinder/requirements.txt",
+	):
+		cmd(secretfinder_cmd)
+
+
 # Thanks HaxUnit
 def install_acunetix():
 	if not exists("acunetix_docker"):
@@ -85,9 +103,10 @@ def install_acunetix():
 			acunetix_password = "new_password"
 
 		cmd("docker build -t aws acunetix_docker")
-		cmd("docker run -it -d -p 3443:3443 aws")
+		cmd("docker run --name acunetix-lioscan -it -d -p 3443:3443 aws")
 
 		print("Acunetix", "Installed successfully - available at https://localhost:3443/")
+		cmd(f"{BROWSER} https://localhost:3443/ &")
 
 
 def check_goland_version():
@@ -99,17 +118,25 @@ def check_goland_version():
 def install_all():
 	start_print("INSTALLING TOOLS")
 
-	if check_goland_version():
-		install_golang_tools()
-		install_rustscan()
-		install_nrich()
-		install_uro()
-		install_wafw00f()
-		install_webanalyze()
-		install_whatweb()
-		install_acunetix()
+	yes_answer = ["y", "yes", "ye", "ys"]
+	answer = input("Do you really want to start the installation process ? ")
+	if answer.lower() in yes_answer:
+		if check_goland_version():
+			install_golang_tools()
+			install_rustscan()
+			install_nrich()
+			install_uro()
+			install_wafw00f()
+			install_webanalyze()
+			install_whatweb()
+			install_linkfinder()
+			install_secretfinder()
+			install_acunetix()
+		else:
+			print("You need at least golang 1.17")
+			exit()
 	else:
-		print("You need at least golang 1.17")
+		print("See ya !")
 		exit()
 	
 	end_print("INSTALLING TOOLS")
