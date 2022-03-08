@@ -45,6 +45,12 @@ $ pip install -r requirements.txt
 $ python lioscan.py -i
 ```
 
+## Docker - Run image
+```
+$ docker build . -t liodeus ; docker run -it liodeus /bin/bash
+```
+
+
 ## Acunetix API key
 
 Once the installation process is finished (cf. [Installation](https://github.com/Liodeus/lioscan#installation)), you need to get your API key from the acunetix docker.
