@@ -25,17 +25,24 @@ TODO
 
 - python3 (sudo apt install python3)
 - pip3 (sudo apt install python3-pip)
-- go (>=1.17)
-- docker
-- firefox
+- Go (>=1.17)
+- Docker
+- Firefox
 
 ## Installation
 
 ```
-git clone https://github.com/Liodeus/lioscan
-cd lioscan
-pip3 install -r requirements.txt
-python3 lioscan.py -i
+$ git clone https://github.com/Liodeus/lioscan
+$ cd lioscan
+
+# Create a virtual env
+$ python3 -m venv .venv
+
+# Activate the virtual env
+$ . .venv\bin\activate
+
+$ pip install -r requirements.txt
+$ python lioscan.py -i
 ```
 
 ## Acunetix API key
