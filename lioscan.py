@@ -73,6 +73,9 @@ if __name__ == '__main__':
 					launch_js(url, domain, path_arg)
 					remove_unused_files_js(domain, path_arg)
 
+					# Remove files without content - No need for them
+					remove_empty_files(path_arg)
+
 					# Active scan
 					if args.apikey:
 						acunetix(args.apikey, domain, dir_name)

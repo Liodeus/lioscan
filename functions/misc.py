@@ -1,5 +1,6 @@
 from functions.config import *
 import requests
+import glob
 import os
 
 
@@ -47,6 +48,18 @@ def end_print(tool_name):
 	print("**************************************************************")
 	print(f"\t\t\tEND {tool_name}")
 	print("**************************************************************")
+
+
+def remove_empty_files(path):
+	files = glob.glob(f"{path}*", recursive=True)
+
+	for file in files:
+		# Get sie of the file
+		file_size = os.path.getsize(file)
+
+		if file_size <= 1:
+			# Delete the file
+			cmd(f"rm {path}{file}")
 
 
 def banner():
